@@ -34,6 +34,8 @@ function createTodoOnCurrentPage(newText) {
   
   todoMain.prepend(newDiv);
   createEventListenerForChecks(newCheckbox, newP)
+
+  
 }
 
 submitButton.onclick = () => {
@@ -47,6 +49,17 @@ submitButton.onclick = () => {
   
 }
 
+
+function changeToggleImage() {
+    const toggleCaret = document.getElementById("sidebar-toggle").querySelector('img');
+    const currentSrc = toggleCaret.src;
+    if (currentSrc.includes("1.3")) {
+        toggleCaret.src = "/static/images/caret icon 2.1 (flipped).png";
+    } else if (currentSrc.includes("2.1")) {
+        toggleCaret.src = "/static/images/caret icon 1.3.png";
+    }
+}
+
 toggle.onclick = () => {
   if (sidebar.classList.contains("show-side-container")) {
     sidebar.classList.remove("show-side-container");
@@ -56,5 +69,8 @@ toggle.onclick = () => {
     sidebar.classList.remove("hide-side-container");
     sidebar.classList.add("show-side-container");
   }
+
+  changeToggleImage();
   
 }
+
