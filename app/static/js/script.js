@@ -4,6 +4,45 @@ const todoMain = document.getElementById("todo-main-section");
 const inputBox = document.getElementById("write-todo");
 const submitButton =  document.getElementById("create-todo");
 
+const currPagePointer = 0;
+const currPageArr = [];
+const memObj = {
+    0: {
+        title: "Page1",
+        items:currPageArr
+    }
+};
+
+//to read/update todo items on a page:
+// memObj[<currPagePointer>].items
+
+
+
+function putTodoInCache(todoText) {
+    //insert todo at beginning of page
+    currPageArr.unshift(todoText);
+    //this is really bad because we are re-writing the entire page content into an array each time we add a todo
+    //much better would be to update only a linked list with a new starting node, as the value of the "items" key
+    //the key would simply point to the first item in the list, which points to the next item, and so on
+    //the last item would not point to anything
+    memObj[currPagePointer].items = currPageArr;
+
+}
+
+function readAndLoadPageFromCache(targetPointer) {
+    const newCurrentPage = memObj[targetPointer]
+    const pageTitle = newCurrentPage.title;
+    const pageItems = newCurrentPage.items;
+
+    todoMain.replaceChildren();
+
+    pageItems.forEach(item, ()=>{createTodoOnCurrentPage(item)})
+
+    const UITitle = document.getElementById("UI-title");
+    UITitle.innerText = pageTitle;
+
+}
+
 function createEventListenerForChecks(checkbox, para) {
   checkbox.addEventListener('click', () => {
     if (checkbox.checked) {
@@ -37,19 +76,20 @@ function createTodoOnCurrentPage(newText) {
 
 }
 
-function submitNew () {
+function submitNewTodo () {
     if (/^[ ]*$/.test(inputBox.value)) {
         return
     }
     const newText = inputBox.value.trim();
     createTodoOnCurrentPage(newText);
+    putTodoInCache(newText);
     inputBox.value = "";
     inputBox.focus();
     todoMain.scroll({top:0,behavior:'smooth'});
 }
 
 submitButton.onclick = () => {
-  submitNew()
+  submitNewTodo()
   
 }
 

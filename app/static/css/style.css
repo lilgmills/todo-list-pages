@@ -84,6 +84,25 @@
     color: #656545;
     padding-left: 25px;
   }
+
+  #side-menu-container > .sidebar-content:hover {
+    color: #2e2e21;
+    text-decoration-line: underline;
+    cursor: pointer;
+  }
+
+
+  #create-new-page {
+    align-self: center;
+  }
+  #create-new-page > p {
+    font-size: .8rem;
+  }
+  #create-new-page > p:hover {
+    text-decoration-line: underline;
+    opacity: 70%;
+    cursor: pointer;
+  }
   
   
   #todo-main {
