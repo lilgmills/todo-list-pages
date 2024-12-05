@@ -35,6 +35,8 @@ function createTodoOnCurrentPage(newText) {
   todoMain.prepend(newDiv);
   createEventListenerForChecks(newCheckbox, newP)
 
+  todoMain.scrollTop = 0;
+
   
 }
 
