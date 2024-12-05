@@ -35,9 +35,6 @@ function createTodoOnCurrentPage(newText) {
   todoMain.prepend(newDiv);
   createEventListenerForChecks(newCheckbox, newP)
 
-  todoMain.scrollTop = 0;
-
-  
 }
 
 function submitNew () {
@@ -48,6 +45,12 @@ function submitNew () {
     createTodoOnCurrentPage(newText);
     inputBox.value = "";
     inputBox.focus();
+    todoMain.scroll({top:0,behavior:'smooth'});
+}
+
+submitButton.onclick = () => {
+  submitNew()
+  
 }
 
 inputBox.addEventListener("keypress", function(event) {
@@ -59,11 +62,6 @@ inputBox.addEventListener("keypress", function(event) {
         submitButton.click();
     }
 } )
-
-submitButton.onclick = () => {
-  submitNew()
-  
-}
 
 
 function changeToggleImage() {
