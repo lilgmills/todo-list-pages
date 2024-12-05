@@ -5,20 +5,25 @@
   *,*:before,*:after {
     box-sizing: inherit;
   }
+
+  body {
+    margin: 0px;
+  }
   
   
   
   #absolute-container {
     position: absolute;
     height: 100vh;
-    width: 28vw;
+    width: 21vw;
     z-index:3;
-    top: 5px;
+    top: 0px;
     left:0px;
+    bottom: 0px;
   }
   
   #absolute-container.show-side-container {
-    width: 28vw;
+    width: 21vw;
   }
   
   #absolute-container.hide-side-container {
@@ -82,6 +87,7 @@
     height:100vh;
     display:flex;
     flex-direction:column;
+    justify-content: start;
   }
   
   #todo-top-section {
@@ -92,9 +98,11 @@
   }
   
   #todo-main-section {
-    width:60%;
-    flex-basis: 68%;
+    width: 40%;
+    flex-basis: 75%;
     align-self:center;
+    max-height: 75%; 
+    overflow: auto;
   }
   
   .checklist-item {
@@ -105,8 +113,10 @@
     margin: 15px;
   }
   
-  .txt-container {
+  .txt-container  {
     text-wrap: wrap;
+    max-width: 96%;
+    overflow: auto;
   }
   
   
@@ -117,9 +127,9 @@
   
   
   #input-container {
-    height: 15vh;
+    bottom: 70px;
     justify-self: end;
-    flex-basis:25%;
+    flex-basis:15%;
   }
   #todo-new-input {
     display:flex;
