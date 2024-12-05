@@ -38,14 +38,28 @@ function createTodoOnCurrentPage(newText) {
   
 }
 
+function submitNew () {
+    if (/^[ ]*$/.test(inputBox.value)) {
+        return
+    }
+    const newText = inputBox.value.trim();
+    createTodoOnCurrentPage(newText);
+    inputBox.value = "";
+    inputBox.focus();
+}
+
+inputBox.addEventListener("keypress", function(event) {
+    // Execute a function when the user presses a key on the keyboard
+    if (event.key === "Enter") {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        
+        submitButton.click();
+    }
+} )
+
 submitButton.onclick = () => {
-  if (/^[ ]*$/.test(inputBox.value)) {
-    return
-  }
-  //create a new todo list item with the text that's been input
-  const newText = inputBox.value.trim();
-  createTodoOnCurrentPage(newText);
-  inputBox.value = "";
+  submitNew()
   
 }
 
