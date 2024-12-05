@@ -7,11 +7,44 @@
   </head>
   <body>
     <header>
-      <h1>Todo</h1>
     </header>
     <main>
-      <div class = "todo-container"></div>
-      <button class = "add-new-todo">+</button>
+      
+        <div id="absolute-container" class="hide-side-container">
+            <div id="sidebar-toggle"></div>
+            <div id ="side-container">
+                <div id="sidebar">
+                    <h3>Pages</h3>
+                    <div id="side-menu-container">
+                        <div class="sidebar-content">
+                            <p>Page1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        </div>
+        
+        <div id="todo-main">
+            <div id="todo-top-section">
+                <h1>Page1</h1>
+            </div>
+            
+            <div id="todo-main-section">
+            </div>
+            
+            <div class="input-container">
+                <div id="todo-new-input">
+                    <input id="write-todo">
+                    <button id="create-todo">Add new</button>
+                </div>
+            </div>
+            
+            
+            
+        </div>
 
     </main>
     <script src = "{{ url_for('static', filename='js/script.js')}}">

@@ -1,42 +1,60 @@
-const todoContainer = document.querySelector('.todo-container');
-const button = document.querySelector('.add-new-todo');
-let id = 0;
+const toggle = document.getElementById("sidebar-toggle");
+const sidebar = document.getElementById("absolute-container");
+const todoMain = document.getElementById("todo-main-section");
+const inputBox = document.getElementById("write-todo");
+const submitButton =  document.getElementById("create-todo");
 
-setIdValue = () => {
-    //later with data storage we will check the latest id value on server
-    id = id + 1;
-    return id
-};
-
-function createTodo() {
-    const newTodoItem = document.createElement('div');
-
-    newTodoItem.setAttribute('class', 'todo-list-item');
-    newTodoItem.setAttribute('id', String(setIdValue()));
-
-    const newInput = document.createElement('input');
-    newInput.setAttribute('class', 'todo-list-input');
-    const newToggle = document.createElement('button');
-    newToggle.setAttribute('class', 'todo-list-toggle');
-
-    newToggle.setAttribute('class', 'empty');
-    newToggle.onclick = () => {
-        let status = newToggle.getAttribute('class');
-        newToggle.setAttribute('class', status == 'empty'?'check':'empty');
+function createEventListenerForChecks(checkbox, para) {
+  checkbox.addEventListener('click', () => {
+    if (checkbox.checked) {
+      para.classList.add('checked-item')
+      
+    } else {
+      para.classList.remove('checked-item')
     }
-
-    newTodoItem.appendChild(newInput);
-    newTodoItem.appendChild(newToggle);
-
-
-    console.log(newTodoItem);
-
-    todoContainer.appendChild(newTodoItem);
-
-    return
+  })
+  
 }
 
-button.addEventListener('click', () => {
-    createTodo();
+function createTodoOnCurrentPage(newText) {
+  const newDiv = document.createElement('div');
+  const newCheckbox = document.createElement('input');
+  const txtContainer = document.createElement('div');
+  
+  newCheckbox.setAttribute('type','checkbox');
+  newCheckbox.setAttribute('class','todo-checkmark');
+  const newP = document.createElement('p');
+  newP.textContent = newText;
+  txtContainer.appendChild(newP);
+  txtContainer.classList.add('txt-container');
+  
+  newDiv.setAttribute('class', 'checklist-item')
+  newDiv.appendChild(newCheckbox);
+  newDiv.appendChild(txtContainer)
+  
+  todoMain.prepend(newDiv);
+  createEventListenerForChecks(newCheckbox, newP)
+}
 
-});
+submitButton.onclick = () => {
+  if (/^[ ]*$/.test(inputBox.value)) {
+    return
+  }
+  //create a new todo list item with the text that's been input
+  const newText = inputBox.value.trim();
+  createTodoOnCurrentPage(newText);
+  inputBox.value = "";
+  
+}
+
+toggle.onclick = () => {
+  if (sidebar.classList.contains("show-side-container")) {
+    sidebar.classList.remove("show-side-container");
+    sidebar.classList.add("hide-side-container");
+  }
+  else {
+    sidebar.classList.remove("hide-side-container");
+    sidebar.classList.add("show-side-container");
+  }
+  
+}
