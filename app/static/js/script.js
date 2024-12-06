@@ -5,7 +5,6 @@ const inputBox = document.getElementById("write-todo");
 const submitButton =  document.getElementById("create-todo");
 
 let currPagePointer = 0;
-let currPageArr = [];
 let memObj = [];
 
 function resetMemObj() {
@@ -28,7 +27,7 @@ let ptTo = (obj, idx) => {
 }
 
 function putTodoInCache(todoText) {
-    currPageArr.unshift(todoText);
+    console.log("Putting todo in cache...")
     memObj[currPagePointer].status.unshift(false);
     
     memObj[currPagePointer].items.unshift(todoText);
@@ -37,7 +36,6 @@ function putTodoInCache(todoText) {
 
 function putNewPageInCache(title) {
     memObj.unshift({title:title, items:[], status:[]})
-    currPageArr=[];
     currPagePointer=0;
 }
 
@@ -75,21 +73,31 @@ function loadTodoOnCurrentPage(newText, status, index) {
 
 function readAndLoadPageFromCache(targetPointer) {
     
-    currPagePointer = targetPointer;
+    
+
+    console.log("targetPointer: ", currPagePointer);
+
+    console.log("memObj: ", memObj);
+
+    console.log(`memObj[${targetPointer}]: `, memObj[targetPointer])
+
+    console.log('PageItems.length: ', memObj[targetPointer].items.length);
 
     const pageTitle = memObj[targetPointer].title;
     const pageItems = memObj[targetPointer].items;
     const pageStatus = memObj[targetPointer].status;
-    currPageArr = pageItems;
 
-    todoMain.replaceChildren();
-
+    //clear the page
+    todoMain.innerHTML = "";
+    currPagePointer = targetPointer;
     const RANGE = pageItems.length;
 
     for(i=0;i<RANGE;i++) {
         loadTodoOnCurrentPage(pageItems[i], pageStatus[i], i);
         
     }
+
+    
     const todoElements = todoMain.children;
 
     Array.from(todoElements).forEach((currDiv, index) => {
@@ -127,7 +135,6 @@ function createNewTodoPage() {
     menu.prepend(newSidebarContent);
 
     const sideBarContent = menu.children;
-    // .children returns HTMLCollection
 
     putNewPageInCache(defaultTitle);
 
@@ -143,11 +150,6 @@ function createNewTodoPage() {
         item.onclick = createInputHandlerById(index);
 
     })
-
-    
-
-    //need to update event listeners when this happens? or just create one new event listener
-
 }
 
 document.getElementById('create-new-page').onclick = () => {
@@ -195,6 +197,8 @@ function createTodoAndDisplay(newText) {
     newDiv.appendChild(txtContainer);
     
     todoMain.prepend(newDiv);
+
+    
 
 }
 
