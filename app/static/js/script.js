@@ -50,13 +50,6 @@ function loadTodoOnCurrentPage(newText, status, index) {
     newP.setAttribute("id",String(index));
 
     newDiv.setAttribute('class', 'checklist-item')
-    if(status) {
-        newDiv.classList.add('checked');
-    }
-    else {
-        newDiv.classList.add('unchecked');
-
-    }
     
     newDiv.appendChild(newCheckbox);
     newDiv.appendChild(txtContainer);
@@ -98,18 +91,50 @@ function readAndLoadPageFromCache(targetPointer) {
     
     const todoElements = todoMain.children;
 
+    
     Array.from(todoElements).forEach((currDiv, index) => {
+        
         if(pageStatus[index]) {
             currDiv.classList.add('checked');
             currDiv.children[1].children[0].classList.add('checked-item');
+            currDiv.children[0].checked = true;
         }
         else {
             currDiv.classList.add('unchecked');
             currDiv.children[1].children[0].classList.add('unchecked-item');
+            currDiv.children[0].checked = false;
         }
     })
 
     reindexTodoIds();
+
+    //This is where you need to create the event listeners on the loaded page
+
+    Array.from(todoElements).forEach((div, index)=>{
+        function createEventListenerForChecks() {
+            
+            return function (event) {
+                todoTxtP = div.children[1].children[0]
+                if(div.classList.contains("checked")) {
+                    div.classList.remove("checked")
+                    div.classList.add("unchecked")
+                    todoTxtP.classList.remove("checked-item")
+                    todoTxtP.classList.add("unchecked-item")
+                    memObj[currPagePointer].status[index] = false;
+                }
+                else {
+                    div.classList.add("checked")
+                    div.classList.remove("unchecked")
+                    todoTxtP.classList.add("checked-item")
+                    todoTxtP.classList.remove("unchecked-item");
+                    memObj[currPagePointer].status[index] = true;
+                }
+
+            }
+        }
+
+        div.children[0].onclick = createEventListenerForChecks(div)
+    })
 
     const UITitle = document.getElementById("UI-title");
     UITitle.innerText = pageTitle;
@@ -192,12 +217,14 @@ function createTodoAndDisplay(newText) {
                     item.classList.add("unchecked")
                     todoTxtP.classList.remove("checked-item")
                     todoTxtP.classList.add("unchecked-item")
+                    memObj[currPagePointer].status[index] = false;
                 }
                 else {
                     item.classList.add("checked")
                     item.classList.remove("unchecked") 
                     todoTxtP.classList.add("checked-item")
                     todoTxtP.classList.remove("unchecked-item")
+                    memObj[currPagePointer].status[index] = true;
                 }
             }
         }

@@ -87,7 +87,6 @@
 
   #side-menu-container > .sidebar-content:hover {
     color: #2e2e21;
-    text-decoration-line: underline;
     cursor: pointer;
   }
 
