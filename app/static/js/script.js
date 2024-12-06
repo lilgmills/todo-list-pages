@@ -22,10 +22,6 @@ resetMemObj();
 //to read/update todo items on a page:
 // memObj[<currPagePointer>].items
 
-let ptTo = (obj, idx) => {
-    return obj.length - idx - 1
-}
-
 function putTodoInCache(todoText) {
     console.log("Putting todo in cache...")
     memObj[currPagePointer].status.unshift(false);
@@ -66,7 +62,9 @@ function loadTodoOnCurrentPage(newText, status, index) {
     newDiv.appendChild(txtContainer);
 
     todoMain.appendChild(newDiv);
-    //createIndexedEventListenerForChecks(newCheckbox, newP, newDiv, index);
+    //createEventListenerForChecks(newCheckbox, newP, newDiv);
+
+
 
         
 }
@@ -157,25 +155,6 @@ document.getElementById('create-new-page').onclick = () => {
     readAndLoadPageFromCache(0);
 }
 
-function createEventListenerForChecks(checkbox, para, containDiv) {
-  checkbox.addEventListener('click', () => {
-    if (containDiv.classList.contains('unchecked')) {
-      para.classList.add('checked-item');
-      containDiv.classList.remove('checked');
-      containDiv.classList.add('unchecked');
-
-    } else {
-      para.classList.remove('checked-item');
-      memObj[currPagePointer].status.unshift(false);
-      containDiv.classList.remove('unchecked');
-      containDiv.classList.add('checked');
-    }
-    
-  })
-
-  
-}
-
 
 
 function createTodoAndDisplay(newText) {
@@ -197,8 +176,36 @@ function createTodoAndDisplay(newText) {
     newDiv.appendChild(txtContainer);
     
     todoMain.prepend(newDiv);
-
     
+    const todos = Array.from(todoMain.children);
+    todos.forEach((item, index)=> {
+        let todoCheckbox = item.children[0];
+        let todoTxtCont = item.children[1];
+        let todoTxtP = todoCheckbox.children[0];
+
+        
+        function createEventListenerForChecks(item) {
+            return (event)=> {
+                todoTxtP = item.children[1].children[0]
+                if (item.classList.contains("checked")) {
+                    item.classList.remove("checked")
+                    item.classList.add("unchecked")
+                    todoTxtP.classList.remove("checked-item")
+                    todoTxtP.classList.add("unchecked-item")
+                }
+                else {
+                    item.classList.add("checked")
+                    item.classList.remove("unchecked") 
+                    todoTxtP.classList.add("checked-item")
+                    todoTxtP.classList.remove("unchecked-item")
+                }
+            }
+        }
+
+
+        todoCheckbox.onclick = createEventListenerForChecks(item);
+
+    });  
 
 }
 
