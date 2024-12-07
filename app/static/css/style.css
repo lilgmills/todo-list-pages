@@ -8,6 +8,7 @@
 
   body {
     margin: 0px;
+    font-family: 'Open Sans', sans-serif;
   }
   
   
@@ -80,7 +81,7 @@
   }
   
   #side-menu-container > .sidebar-content {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #656545;
     padding-left: 25px;
   }
@@ -95,7 +96,7 @@
     align-self: center;
   }
   #create-new-page > p {
-    font-size: .8rem;
+    font-size: 1rem;
   }
   #create-new-page > p:hover {
     text-decoration-line: underline;
@@ -125,8 +126,8 @@
     align-self:center;
     max-height: 75%; 
     overflow: auto;
+    font-size:1.2rem;
   }
-  
   .checklist-item {
     display: flex;
   }
@@ -150,25 +151,31 @@
   
   
   #input-container {
-    bottom: 70px;
-    justify-self: end;
-    flex-basis:15%;
+    
+    
   }
   #todo-new-input {
-    display:flex;
+    display: flex;
     flex-direction:row;
-    padding-left:30vw;
+    justify-content: center;
   }
   
   #write-todo {
-    flex-basis:40%;
+    display:inline-block;
+    width: 40%;
+    font-size: 1.3rem;
+    
   }
   #create-todo {
-    flex-basis:12%;
+    display:inline-block;
     margin-left:10px;
     background-color: #48D8FF;
     color:white;
     border:none;
+    min-width:40px;
+    height:40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
   }
   #create-todo:hover {
     background-color: #69FFFF;
