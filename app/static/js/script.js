@@ -5,12 +5,12 @@ const inputBox = document.getElementById("write-todo");
 const submitButton =  document.getElementById("create-todo");
 
 let currPagePointer = 0;
-let memObj = [];
+let memObj = [{title: "Page1", items:[], status:[]}];
 
 function resetMemObj() {
     memObj = [];
     memObj.unshift({
-        title: "New Page",
+        title: "Page1",
         items:[],
         status:[],
     });
@@ -64,16 +64,6 @@ function loadTodoOnCurrentPage(newText, status, index) {
 
 function readAndLoadPageFromCache(targetPointer) {
     
-    
-
-    console.log("targetPointer: ", currPagePointer);
-
-    console.log("memObj: ", memObj);
-
-    console.log(`memObj[${targetPointer}]: `, memObj[targetPointer])
-
-    console.log('PageItems.length: ', memObj[targetPointer].items.length);
-
     const pageTitle = memObj[targetPointer].title;
     const pageItems = memObj[targetPointer].items;
     const pageStatus = memObj[targetPointer].status;
@@ -137,7 +127,7 @@ function readAndLoadPageFromCache(targetPointer) {
     })
 
     const UITitle = document.getElementById("UI-title");
-    UITitle.innerText = pageTitle;
+    UITitle.innerHTML = pageTitle;
 
 }
 
