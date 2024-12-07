@@ -6,4 +6,5 @@
             "config": {"runtime":"python3.12"}
         }
     ],
+    "routes": [{"src": "/(.*)", "dest": "app\routes.py"}]
 }
